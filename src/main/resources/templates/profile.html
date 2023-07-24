@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${mList.memberName}">님의 마이페이지</title>
+</head>
+<body>
+<p><span th:text="${mList.memberName}" />님의 상세페이지</p>
+<div>
+    <div>회원번호:<span th:text="${mList.memberNo}"></span></div>
+    <div>이름:<span th:text="${mList.memberName}"></span></div>
+    <div>비밀번호:<span th:text="${mList.memberPwd}"></span></div>
+    <div>생년월일:<span th:text="${mList.memberBirth}"></span></div>
+    <div>휴대전화:<span th:text="${mList.memberPhone}"></span></div>
+    <div>이메일:<span th:text="${mList.memberEmail}"></span></div>
+</div>
+</body>
+</html>

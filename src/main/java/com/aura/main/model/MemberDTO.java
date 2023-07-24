@@ -16,6 +16,7 @@ public class MemberDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberNo;
+
     private String memberId;
     private String memberName;
     private String memberPwd;
