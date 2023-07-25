@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MemberRepository extends JpaRepository<MemberDTO, Long> {
-
+            MemberDTO findByMemberIdAndMemberPwd(String memberId,String memberPwd);
 }
