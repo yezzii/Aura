@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <style>
+        .login-container {
+            text-align: center;
+            margin-top: 400px;
+        }
+
+        /* 자식 요소들의 공통 스타일 */
+        .more {
+            display: block;
+            margin: 5px auto; /* 좌우 여백을 자동으로 설정하여 가운데로 정렬 */
+        }
+        .login-container span{
+            font-size: 20px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+    <body>
+        <div class="login-container">
+            <span>로그인</span>
+            <br>
+            <div>
+                <form action="/check" method="post">
+                    <input type="textbox" class="more" name="id" placeholder="아이디/이메일을 입력해 주세요."> 
+                    <input type="password" class="more" name="password" placeholder="비밀번호를 입력해 주세요.">
+                    <input type="checkbox"  name="autologin">자동 로그인
+                    <input type="submit" class="more" value="로그인">
+                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=2cba3134e81cfb884bccc490cd964f4a&redirect_uri=http://localhost:8989/kakao/login&response_type=code" class="more">카카오로그인</a>
+                </form>
+
+            </div>
+            <a href="#">아이디 찾기</a>
+            <a href="#">비밀번호 찾기</a>
+        </div>
+    </body>
+</html>
