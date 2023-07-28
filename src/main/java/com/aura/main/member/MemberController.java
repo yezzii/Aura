@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Objects;
 
 
 @Controller
@@ -25,9 +27,8 @@ public class MemberController {
     //로그인 페이지
     @GetMapping("/login")
 
-
     public String login(Model model) {
-
+        model.addAttribute("kakaoUrl",memberService.KakaoLogin());
         return "member/login";
     }
     //로그인 체크
@@ -60,9 +61,28 @@ public class MemberController {
     @RequestMapping("/kakao")
     public class kakaoController{
         @GetMapping("/login")
-        public String kakao(@RequestParam String code,Model model)throws IOException{
+        public String KakaoLogin(@RequestParam String code,HttpServletResponse response,
+                                 HttpServletRequest request,Model model)throws IOException{
             System.out.println("code = " + code);
             String access_token = memberService.getToken(code);
+            Map<String, Object> userInfo = memberService.getUserInfo(access_token);
+            System.out.println("###nickname#### : "+userInfo.get("nickname"));
+            System.out.println("###email#### : "+userInfo.get("email"));
+            System.out.println("###id#### : "+userInfo.get("id"));
+            String kakao_id = (String) userInfo.get("id");
+            MemberDTO dto = memberService.kakaologinCheck(kakao_id);
+            System.out.println(dto);
+
+            int check = 0;
+
+            if(dto != null){
+                check = 1;
+            }
+
+            if(check == 1) {
+                if(dto.get)
+            }
+
 
 
             return "member/kakaologin";
