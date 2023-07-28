@@ -26,11 +26,11 @@
             <br>
             <div>
                 <form action="/check" method="post">
-                    <input type="textbox" class="more" name="id" placeholder="아이디/이메일을 입력해 주세요."> 
+                    <input type="textbox" class="more" name="id" placeholder="아이디/이메일을 입력해 주세요.">
                     <input type="password" class="more" name="password" placeholder="비밀번호를 입력해 주세요.">
                     <input type="checkbox"  name="autologin">자동 로그인
                     <input type="submit" class="more" value="로그인">
-                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=2cba3134e81cfb884bccc490cd964f4a&redirect_uri=http://localhost:8989/kakao/login&response_type=code" class="more">카카오로그인</a>
+                    <a th:href="@{|${kakaoUrl}|}" class="more">카카오로그인</a>
                 </form>
 
             </div>
