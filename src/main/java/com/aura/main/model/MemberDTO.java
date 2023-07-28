@@ -1,13 +1,12 @@
 package com.aura.main.model;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 
 import javax.persistence.*;
 
 @Entity
-@Getter
 @Data
 @NoArgsConstructor
 @Table(name = "member")

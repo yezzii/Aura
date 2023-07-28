@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface MemberRepository extends JpaRepository<MemberDTO, Long> {
-
-
+    
+    MemberDTO findByMemberIdAndMemberPwd(String memberId,String memberPwd);
 }
