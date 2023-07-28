@@ -13,12 +13,7 @@ public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public List<MemberDTO> memberList() {
+    public List<MemberDTO> memberList() {   return memberRepository.findAll();    }
 
-        return memberRepository.findAll();
-    }
-
-    public MemberDTO getMemberProfile(Long no) {
-        return (MemberDTO) memberRepository.findById(no).get();
-    }
+    public MemberDTO getMemberProfile(Long no) {    return (MemberDTO) memberRepository.findById(no).get();    }
 }

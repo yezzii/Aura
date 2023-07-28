@@ -28,7 +28,7 @@ public class MemberController {
 
     @GetMapping("/profile")
     public String getMemberProfile(Model model, @RequestParam(value = "no")Long no){
-        model.addAttribute("mList",memberService.getMemberProfile(no));
+        model.addAttribute("mList", memberService.getMemberProfile(no));
         return "profile";
     }
 

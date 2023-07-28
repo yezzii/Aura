@@ -34,6 +34,8 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    //gson
+    implementation ("com.google.code.gson:gson:2.8.7")
 }
 
 tasks.withType<Test> {
