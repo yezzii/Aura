@@ -6,6 +6,7 @@
     <title>Title</title>
 </head>
 <body>
+
     <h1>회원정보123</h1>
     <div th:each="member : ${list}">
         <div>회원번호 : <span th:text="${member.memberNo}">번</span></div>
@@ -15,8 +16,6 @@
         <div>휴대전화 : <span th:text="${member.memberPhone}"></span></div>
         <div>생년월일 : <span th:text="${member.memberBirth}"></span></div>
     </div>
-
-
 
 </body>
 </html>
