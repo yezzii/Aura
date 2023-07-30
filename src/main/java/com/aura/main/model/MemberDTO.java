@@ -1,13 +1,12 @@
 package com.aura.main.model;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 
 import javax.persistence.*;
 
 @Entity
-@Getter
 @Data
 @NoArgsConstructor
 @Table(name = "member")
@@ -17,6 +16,7 @@ public class MemberDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberNo;
     private String memberId;
+    private String kakaoId;
     private String memberName;
     private String memberPwd;
     private String memberPhone;
@@ -24,6 +24,7 @@ public class MemberDTO {
     private String addrPost;
     private String addrDetail;
     private String memberBirth;
+    private String memberAge;
     private String memberSex;
     private String memberType;
     private String mailKey;
