@@ -10,4 +10,6 @@ import java.util.List;
 public interface MemberRepository extends JpaRepository<MemberDTO, Long> {
     
     MemberDTO findByMemberIdAndMemberPwd(String memberId,String memberPwd);
+
+    int findByMemberEmailAndMemberName(String email, String name);
 }

@@ -75,7 +75,7 @@ public class MemberController {
         System.out.println("naver.go 진입");
 
         String clientId = "8ljUOFqbhL8ClN644LoP";//애플리케이션 클라이언트 아이디값";
-        String redirectURI = URLEncoder.encode("http://localhost:8989/login/naverLogin.go", "UTF-8");
+        String redirectURI = URLEncoder.encode("http://localhost:8989/naverLogin.go", "UTF-8");
         SecureRandom random = new SecureRandom();
         String state = new BigInteger(130, random).toString();
 
@@ -94,7 +94,8 @@ public class MemberController {
     }
 
     @GetMapping(value = "/naverLogin.go")
-    public @ResponseBody String naverLoginOk(@RequestParam(value = "code", required = false) String code, Model model,
+    @ResponseBody
+    public String naverLoginOk(@RequestParam(value = "code", required = false) String code, Model model,
     HttpSession session) throws Exception{
 
         System.out.println("/naverLogin.go  진입");
@@ -102,6 +103,31 @@ public class MemberController {
         String accessToken = memberService.getNaverAccessToken(code, session);
 
         HashMap<String, Object> userInfo = memberService.getNaverUserInfo(accessToken);
+
+        String naverId = (String) userInfo.get("id");
+        String name = (String) userInfo.get("name");
+        String email = (String) userInfo.get("email");
+        String phone = (String) userInfo.get("phone");
+        String birthYear = (String) userInfo.get("birthyear");
+        String birthday = (String) userInfo.get("birthday");
+        String cleanedbirthday = birthday.replaceAll("-", "");
+        String birth = birthYear + cleanedbirthday;
+        String gender = (String) userInfo.get("gender");
+
+        System.out.println("email : " + email);
+        System.out.println("name : " + name);
+
+        try {
+
+            int check = memberService.naverLoginCheck(email,name);
+            System.out.println("회원가입 여부 :"+check);
+
+        } catch (Exception e){
+
+             e.printStackTrace();
+
+        }
+
 
         System.out.println(userInfo);
 
@@ -112,7 +138,7 @@ public class MemberController {
     public String naverLoginOk(){
 
         System.out.println("네이버로그인 완료");
-        return "index";
+        return "redirect:/index";
     }
 
     public String generateState(){

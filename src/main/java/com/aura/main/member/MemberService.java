@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -32,6 +33,10 @@ public class MemberService {
         return memberRepository.findByMemberIdAndMemberPwd(memberId,memberPwd);
     }
 
+    public int naverLoginCheck(String email, String name){
+        return memberRepository.findByMemberEmailAndMemberName(email, name);
+    }
+
     public String getNaverAccessToken(String authorize_code, HttpSession session) throws Exception {
 
         String access_token = "";
@@ -40,7 +45,7 @@ public class MemberService {
         String clientId = "8ljUOFqbhL8ClN644LoP";
         String clientSecret = "PLsyV7b8qH";//애플리케이션 클라이언트 시크릿값";
         String state = (String) session.getAttribute("state");
-        String redirectURI = "http://localhost:8989/login/naverLogin.go";
+        String redirectURI = "http://localhost:8989/naverLogin.go";
 
         // 요청 할 url 객체 생성
         URL url = new URL(reqURL);
@@ -125,6 +130,7 @@ public class MemberService {
 
         JsonObject response = element.getAsJsonObject().get("response").getAsJsonObject();
 
+        String id = response.getAsJsonObject().get("id").getAsString();
         String name = response.getAsJsonObject().get("name").getAsString();
         String email = response.getAsJsonObject().get("email").getAsString();
         String phone = response.getAsJsonObject().get("mobile").getAsString();
@@ -132,7 +138,8 @@ public class MemberService {
         String birthday = response.getAsJsonObject().get("birthday").getAsString();
         String gender = response.getAsJsonObject().get("gender").getAsString();
 
-        userInfo.put("nickname", name);
+        userInfo.put("id", id);
+        userInfo.put("name", name);
         userInfo.put("email", email);
         userInfo.put("phone", phone);
         userInfo.put("birthyear", birthyear);
@@ -141,5 +148,5 @@ public class MemberService {
 
         return userInfo;
     }
-
+   
     }
