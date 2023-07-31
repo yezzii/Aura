@@ -32,10 +32,15 @@
                     <input type="submit" class="more" value="로그인">
                     <a href="https://kauth.kakao.com/oauth/authorize?client_id=2cba3134e81cfb884bccc490cd964f4a&redirect_uri=http://localhost:8989/kakao/login&response_type=code" class="more">카카오로그인</a>
                 </form>
+                    <a th:href="${apiURL}">
+                        <img src="img/naverBtn.png" style="width: 200px">
+                    </a>
 
             </div>
             <a href="#">아이디 찾기</a>
             <a href="#">비밀번호 찾기</a>
         </div>
     </body>
+<!-- 네이버 로그인 -->
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 </html>
