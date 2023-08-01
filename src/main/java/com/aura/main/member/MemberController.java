@@ -28,28 +28,30 @@ public class MemberController {
     @GetMapping("/login")
 
     public String login(Model model) {
-        model.addAttribute("kakaoUrl",memberService.KakaoLogin());
+        model.addAttribute("kakaoUrl", memberService.KakaoLogin());
         return "member/login";
     }
+
     //로그인 체크
     @PostMapping("/check")
-    public String loginCheck(HttpServletRequest request, @RequestParam("id")String memberId, @RequestParam("password")String memberPwd) {
+    public String loginCheck(HttpServletRequest request, @RequestParam("id") String memberId, @RequestParam("password") String memberPwd) {
 
-        MemberDTO member = memberService.loginCheck(memberId,memberPwd);
-        if(member !=null){
+        MemberDTO member = memberService.loginCheck(memberId, memberPwd);
+        if (member != null) {
             // 로그인 성공
             HttpSession session = request.getSession();
-            session.setAttribute("loginmember",member);
+            session.setAttribute("loginmember", member);
             return "index";
-        }else{
+        } else {
             //로그인 실패
             return "member/insert";
 
         }
     }
+
     // 로그아웃
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         //세션 무효화
         session.invalidate();
         return "redirect:/login";
@@ -59,34 +61,30 @@ public class MemberController {
     @RestController
     @AllArgsConstructor
     @RequestMapping("/kakao")
-    public class kakaoController{
+    public class kakaoController {
         @GetMapping("/login")
-        public String KakaoLogin(@RequestParam String code,HttpServletResponse response,
-                                 HttpServletRequest request,Model model)throws IOException{
+        public String KakaoLogin(@RequestParam String code, HttpServletResponse response,
+                                 HttpServletRequest request, Model model) throws IOException {
             System.out.println("code = " + code);
             String access_token = memberService.getToken(code);
             Map<String, Object> userInfo = memberService.getUserInfo(access_token);
-            System.out.println("###nickname#### : "+userInfo.get("nickname"));
-            System.out.println("###email#### : "+userInfo.get("email"));
-            System.out.println("###id#### : "+userInfo.get("id"));
+            System.out.println("###nickname#### : " + userInfo.get("nickname"));
+            System.out.println("###email#### : " + userInfo.get("email"));
+            System.out.println("###id#### : " + userInfo.get("id"));
             String kakao_id = (String) userInfo.get("id");
             MemberDTO dto = memberService.kakaologinCheck(kakao_id);
             System.out.println(dto);
 
             int check = 0;
 
-            if(dto != null){
+            if (dto != null) {
                 check = 1;
             }
 
-            if(check == 1) {
-                if(dto.get)
+            if (check == 1) {
             }
-
-
 
             return "member/kakaologin";
         }
     }
-
 }
