@@ -36,7 +36,14 @@ public class MemberService {
         return memberRepository.findByMemberIdAndMemberPwd(memberId, memberPwd);
     }
 
-
+    //아이디가 맞는지 체크
+    public MemberDTO checkId(String memberId) {
+        return memberRepository.findByMemberId(memberId);
+    }
+    // 비밀번호가 맞는지 체크
+    public MemberDTO checkPwd(String memberPwd) {
+        return memberRepository.findByMemberPwd(memberPwd);
+    }
 
         //카카오 로그인 주소
         public String KakaoLogin() {
@@ -162,7 +169,6 @@ public class MemberService {
     public MemberDTO kakaologinCheck(String kakao_id) {
         return memberRepository.findByKakaoId(kakao_id);
     }
-
 
 
 }

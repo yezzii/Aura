@@ -3,7 +3,6 @@ package com.aura.main.member;
 import com.aura.main.model.MemberDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
-import java.util.Objects;
 
 
 @Controller
@@ -33,9 +32,17 @@ public class MemberController {
     }
     //로그인 체크
     @PostMapping("/check")
-    public String loginCheck(HttpServletRequest request, @RequestParam("id")String memberId, @RequestParam("password")String memberPwd) {
+    public String loginCheck(HttpServletRequest request,HttpServletResponse response,
+                             @RequestParam("id")String memberId,
+                             @RequestParam("password")String memberPwd)throws IOException {
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
 
         MemberDTO member = memberService.loginCheck(memberId,memberPwd);
+        MemberDTO checkId = memberService.checkId(memberId);
+        MemberDTO checkPwd = memberService.checkPwd(memberPwd);
+
         if(member !=null){
             // 로그인 성공
             HttpSession session = request.getSession();
@@ -43,9 +50,22 @@ public class MemberController {
             return "index";
         }else{
             //로그인 실패
-            return "member/insert";
+            if(checkId == null) {
+                //아이디가 틀린경우
+                out.println("<script>");
+                out.println("alert('아이디가 틀립니다.')");
+                out.println("history.back()");
+                out.println("</script>");
 
+            }else if(checkPwd == null){
+                //아이디가 틀린경우
+                out.println("<script>");
+                out.println("alert('비밀번호가 틀립니다.')");
+                out.println("history.back()");
+                out.println("</script>");
+            }
         }
+        return "member/login";
     }
     // 로그아웃
     @GetMapping("/logout")
@@ -63,6 +83,11 @@ public class MemberController {
         @GetMapping("/login")
         public String KakaoLogin(@RequestParam String code,HttpServletResponse response,
                                  HttpServletRequest request,Model model)throws IOException{
+
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            String link = null;
+
             System.out.println("code = " + code);
             String access_token = memberService.getToken(code);
             Map<String, Object> userInfo = memberService.getUserInfo(access_token);
@@ -73,20 +98,37 @@ public class MemberController {
             MemberDTO dto = memberService.kakaologinCheck(kakao_id);
             System.out.println(dto);
 
-            int check = 0;
-
             if(dto != null){
-                check = 1;
+                // 회원일 경우
+                HttpSession session = request.getSession();
+                session.setAttribute("UserId",dto.getMemberId());
+                session.setAttribute("KakaoId",dto.getMemberId());
+                session.setAttribute("kakaoImage",userInfo.get("profile_image"));
+                out.println("<script>");
+                out.println("alert('로그인 성공')");
+                out.println("</script>");
+                link = "index";
+            }else {
+                //회원이 아닐경우
+                model.addAttribute("KakaoId",userInfo.get("id"))
+                        .addAttribute("Thumbnail_Image",userInfo.get("thumbnail_image"))
+                        .addAttribute("NickName",userInfo.get("nickname"))
+                        .addAttribute("Email",userInfo.get("email"))
+                        .addAttribute("Gender",userInfo.get("gender"))
+                        .addAttribute("Birthday",userInfo.get("birthday"))
+                        .addAttribute("Age_Ranger",userInfo.get("age_ranger"));
+                        out.println("<script>");
+                        out.println("alert('아이디가 존재하지 않습니다.')");
+                        out.println("</script>");
+                        link = "member/kakaoInsert";
             }
-
-            if(check == 1) {
-                if(dto.get)
-            }
-
-
-
-            return "member/kakaologin";
+            out.close();
+            return link;
         }
     }
+
+
+
+
 
 }
