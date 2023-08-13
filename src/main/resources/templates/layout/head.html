@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:fragment="layout_head(meta, title, link, script)">
+    <!--Common Head-->
+    <meta charset="UTF-8">
+
+    <!--Common CSS-->
+    <link rel="stylesheet" th:href="@{/css/common/common.css}">
+
+    <!--Common JS-->
+    <script type="text/javascript" th:src="@{/js/common/common.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+    <!-- Contents head-->
+    <th:block layout:fragment="contents_head"></th:block>
+
+    <title layout:fragment="title">AURA</title>
+
+

@@ -1,0 +1,12 @@
+.header {
+    color: aqua;
+    border: solid 1px yellow;
+}
+
+.footer {
+    border: solid 1px blue;
+}
+
+.navBar {
+    border: solid 1px hotpink;
+}

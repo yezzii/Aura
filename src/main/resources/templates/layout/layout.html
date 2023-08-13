@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="layout/head :: layout_head(~{::meta}, ~{::title}, ~{::link}, ~{::script})">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+
+<!--    &lt;!&ndash; JS &ndash;&gt;-->
+<!--    <script th:href="@{/js/common/common.js}"></script>-->
+<!--    &lt;!&ndash; CSS  &ndash;&gt;-->
+<!--    <link th:href="@{/css/common/common.css}">-->
+</head>
+<body class="nav-md">
+  <div class="container body">
+    <div class="main_container">
+
+      <div th:replace="~{layout/navBar :: layout_navBar}"></div>
+      <div th:replace="~{layout/header :: layout_header}"></div>
+      <div layout:fragment="layout_content"></div>
+      <!--<div th:replace="~{layout/content :: layout_content}"></div>-->
+      <div th:replace="~{layout/footer :: layout_footer}"></div>
+
+    </div>
+  </div>
+</body>
+</html>
